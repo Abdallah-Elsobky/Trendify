@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">Trendify</string>
+    <string name="loading_nplease_wait">Loading.....\nPlease wait</string>
+    <string name="try_again">Try Again</string>
+    <string name="there_is_no_news_for_this_source">There is no news for this source</string>
+    <string name="noNews">No news available at the moment. Stay tuned for the latest updates!</string>
+    <string name="error">Error</string>
+    <string name="home">Home</string>
+    <string name="go_to_home">Go To Home</string>
+    <string name="title_activity_test">TestActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
 </resources>
