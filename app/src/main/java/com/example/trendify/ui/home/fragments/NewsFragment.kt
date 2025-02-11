@@ -7,8 +7,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import com.example.trendify.R
 import com.example.trendify.api.ApiManager
 import com.example.trendify.api.model.ErrorResponse
 import com.example.trendify.api.model.newsResponse.News
@@ -25,15 +28,16 @@ import retrofit2.Response
 
 
 class NewsFragment : Fragment() {
-    lateinit var binding: FragmentNewsBinding
+    private var _binding: FragmentNewsBinding? = null
+    private val binding get() = _binding!!
     private val adapter: NewsAdapter = NewsAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentNewsBinding.inflate(inflater, container, false)
+    ): View {
+        _binding = FragmentNewsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -46,8 +50,8 @@ class NewsFragment : Fragment() {
     private fun loadSources() {
         // loading
         showLoading()
-
-        ApiManager.webService().getSources().enqueue(object : Callback<SourcesResponse> {
+        val categoryId = arguments?.getString("categoryId")
+        ApiManager.webService().getSources(categoryId).enqueue(object : Callback<SourcesResponse> {
             override fun onResponse(
                 call: Call<SourcesResponse>,
                 response: Response<SourcesResponse>
@@ -185,5 +189,10 @@ class NewsFragment : Fragment() {
         binding.newsRecyclerView.adapter = adapter
     }
 
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 
 }

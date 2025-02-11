@@ -18,4 +18,27 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="good_morning_here_is_some_news_for_you">Good Morning\nHere is Some News For You</string>
+    <string name="trendify">\@trendify</string>
+    <string name="news">news</string>
+    <string name="general">General</string>
+    <string name="entertainment">Entertainment</string>
+    <string name="business">Business</string>
+    <string name="health">Health</string>
+    <string name="science">Science</string>
+    <string name="sports">Sports</string>
+    <string name="tech">Tech</string>
+
+    <string-array name="themes">
+        <item>Light</item>
+        <item>Dark</item>
+    </string-array>
+    <string-array name="languages">
+        <item>English</item>
+        <item>Arabic</item>
+        <item>Spanish</item>
+        <item>French</item>
+    </string-array>
 </resources>
