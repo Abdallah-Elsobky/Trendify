@@ -6,5 +6,7 @@
     <color name="gray">#A0A0A0</color>
     <color name="red">#B00020</color>
 
+    <color name="onBlack">#FFFFFFFF</color>
+    <color name="onWhite">#171717</color>
 
 </resources>

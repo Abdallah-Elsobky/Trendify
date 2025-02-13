@@ -1,4 +1,4 @@
-package com.example.trendify.ui.home
+package com.example.trendify.ui.home.fragments.news
 
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
@@ -15,11 +15,9 @@ import com.example.trendify.R
 import com.example.trendify.api.model.newsResponse.News
 import com.example.trendify.databinding.NewsItemBinding
 import com.github.marlonlom.utilities.timeago.TimeAgo
-import java.text.SimpleDateFormat
-import java.util.Locale
-import java.util.TimeZone
 
-class NewsAdapter : Adapter<NewsAdapter.NewsViewHolder>() {
+class NewsAdapter(val onNewsClick: (article: News) -> Unit) :
+    Adapter<NewsAdapter.NewsViewHolder>() {
 
     private var newsList: List<News?>? = emptyList()
 
@@ -31,6 +29,9 @@ class NewsAdapter : Adapter<NewsAdapter.NewsViewHolder>() {
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         val news = newsList?.get(position)
+        holder.binding.root.setOnClickListener {
+            onNewsClick(news!!)
+        }
         holder.bind(news!!)
     }
 

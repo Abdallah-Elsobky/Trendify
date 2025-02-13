@@ -1,9 +1,11 @@
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/spinner_text"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:textSize="16sp"
     android:padding="10dp"
+    tools:text="Light Mode"
     android:textStyle="bold"
-    android:textColor="@color/black_primary"
-    android:gravity="center_vertical"/>
+    android:textColor="?attr/colorOnPrimary"
+    android:gravity="center_vertical" />
