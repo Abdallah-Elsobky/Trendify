@@ -1,6 +1,7 @@
 package com.example.trendify.api
 
 import android.util.Log
+import android.widget.Toast
 import com.example.trendify.api.interceptors.AuthInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

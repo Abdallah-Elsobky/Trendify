@@ -1,12 +1,14 @@
-package com.example.trendify.ui.home
+package com.example.trendify.ui.home.fragments.category
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trendify.R
 import com.example.trendify.api.model.Category
 import com.example.trendify.databinding.CategoryItemLeftBinding
 import com.example.trendify.databinding.CategoryItemRightBinding
+import java.util.Locale
 
 class CategoriesAdapter(
     private val categories: List<Category> = Category.getCategories(),
@@ -47,19 +49,28 @@ class CategoriesAdapter(
         abstract fun bind(category: Category)
     }
 
-    class LeftViewHolder(private val binding: CategoryItemLeftBinding) :
+    inner class LeftViewHolder(private val binding: CategoryItemLeftBinding) :
         BaseViewHolder(binding.root) {
         override fun bind(category: Category) {
             binding.categoryName.text = binding.root.context.getString(category.title)
             binding.categoryImage.setImageResource(category.imgRes)
+            forArabic(binding.categoryImage)
         }
     }
 
-    class RightViewHolder(private val binding: CategoryItemRightBinding) :
+    inner class RightViewHolder(private val binding: CategoryItemRightBinding) :
         BaseViewHolder(binding.root) {
         override fun bind(category: Category) {
             binding.categoryName.text = binding.root.context.getString(category.title)
             binding.categoryImage.setImageResource(category.imgRes)
+            forArabic(binding.categoryImage)
+        }
+    }
+
+    private fun forArabic(image: ImageView) {
+        val currentLanguage = Locale.getDefault().language
+        if (currentLanguage == "ar") {
+            image.rotationY = 180f
         }
     }
 }

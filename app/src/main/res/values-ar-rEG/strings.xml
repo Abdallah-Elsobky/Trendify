@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">اخبارى</string>
+    <string name="loading_please_wait">جارٍ التحميل.....\nيرجى الانتظار</string>
+    <string name="try_again">حاول مرة أخرى</string>
+    <string name="there_is_no_news_for_this_source">لا توجد أخبار لهذا المصدر</string>
+    <string name="noNews">لا توجد أخبار متاحة في الوقت الحالي. تابع للحصول على آخر التحديثات!</string>
+    <string name="error">خطأ</string>
+    <string name="home">الرئيسية</string>
+    <string name="go_to_home">الصفحة الرئيسية</string>
+    <string name="good_morning_here_is_some_news_for_you">صباح الخير\nإليك بعض الأخبار</string>
+    <string name="news">الأخبار</string>
+    <string name="general">عام</string>
+    <string name="entertainment">ترفيه</string>
+    <string name="business">أعمال</string>
+    <string name="health">صحة</string>
+    <string name="science">علوم</string>
+    <string name="sports">رياضة</string>
+    <string name="tech">تكنولوجيا</string>
+    <string name="search">بحث</string>
+    <string name="view_full_article">عرض المقال</string>
+    <string name="theme">التصميم</string>
+    <string name="language">اللغة</string>
+
+    <string-array name="themes">
+        <item>فاتح</item>
+        <item>داكن</item>
+    </string-array>
+    <string-array name="languages">
+        <item>الإنجليزية</item>
+        <item>العربية</item>
+        <item>الإسبانية</item>
+        <item>الفرنسية</item>
+    </string-array>
+</resources>

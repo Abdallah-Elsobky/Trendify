@@ -1,5 +1,6 @@
-package com.example.trendify.ui.home.fragments
+package com.example.trendify.ui.home.fragments.news
 
+import Constants
 import android.graphics.RenderEffect
 import android.graphics.Shader
 import android.os.Build
@@ -10,8 +11,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import com.example.trendify.R
 import com.example.trendify.api.ApiManager
 import com.example.trendify.api.model.ErrorResponse
 import com.example.trendify.api.model.newsResponse.News
@@ -19,18 +18,21 @@ import com.example.trendify.api.model.newsResponse.NewsResponse
 import com.example.trendify.api.model.sourcesResponse.Source
 import com.example.trendify.api.model.sourcesResponse.SourcesResponse
 import com.example.trendify.databinding.FragmentNewsBinding
-import com.example.trendify.ui.home.NewsAdapter
+import com.example.trendify.ui.home.fragments.articleDialog.ArticleDialogFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.Locale
 
 
 class NewsFragment : Fragment() {
     private var _binding: FragmentNewsBinding? = null
     private val binding get() = _binding!!
-    private val adapter: NewsAdapter = NewsAdapter()
+    private val adapter: NewsAdapter = NewsAdapter {
+        viewArticle(it)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,40 +50,45 @@ class NewsFragment : Fragment() {
     }
 
     private fun loadSources() {
-        // loading
         showLoading()
-        val categoryId = arguments?.getString("categoryId")
-        ApiManager.webService().getSources(categoryId).enqueue(object : Callback<SourcesResponse> {
-            override fun onResponse(
-                call: Call<SourcesResponse>,
-                response: Response<SourcesResponse>
-            ) {
-                if (!response.isSuccessful) {
-                    val errorResponse =
-                        Gson().fromJson(response.errorBody()?.string(), ErrorResponse::class.java)
-                    val message = errorResponse.message ?: "Something went wrong"
-                    showError(message) {
-                        binding.tryAgainButton.setOnClickListener({
-                            loadSources()
-                        })
+        val categoryId = arguments?.getString(Constants.CATEGORY_ID) ?: "general"
+//        val lang = Locale.getDefault().language
+        ApiManager.webService().getSources(categoryId)
+            .enqueue(object : Callback<SourcesResponse> {
+                override fun onResponse(
+                    call: Call<SourcesResponse>,
+                    response: Response<SourcesResponse>
+                ) {
+                    if (!response.isSuccessful) {
+                        val errorResponse =
+                            Gson().fromJson(
+                                response.errorBody()?.string(),
+                                ErrorResponse::class.java
+                            )
+                        val message = errorResponse.message ?: "Something went wrong"
+                        showError(message) {
+                            binding.tryAgainButton.setOnClickListener {
+                                loadSources()
+                            }
+                        }
+                        return
                     }
-                    return
+                    bindTabLayout(response.body()?.sources)
                 }
-                bindTabLayout(response.body()?.sources)
-            }
 
-            override fun onFailure(call: Call<SourcesResponse>, error: Throwable) {
-                showError(error.message ?: "Something went wrong") {
-                    loadSources()
+                override fun onFailure(call: Call<SourcesResponse>, error: Throwable) {
+                    showError(error.message ?: "Something went wrong") {
+                        loadSources()
+                    }
                 }
-            }
 
-        })
+            })
     }
 
     private fun loadNews(sourceId: String?) {
         showLoading()
-        ApiManager.webService().getNews(source = sourceId ?: "abc-news")
+        val query = arguments?.getString(Constants.SEARCH)
+        ApiManager.webService().getNews(source = sourceId ?: "abc-news", query)
             .enqueue(object : Callback<NewsResponse> {
                 override fun onResponse(
                     call: Call<NewsResponse>,
@@ -173,7 +180,7 @@ class NewsFragment : Fragment() {
     }
 
     private fun blurRv() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) { // API 31+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             val blurEffect = RenderEffect.createBlurEffect(20f, 20f, Shader.TileMode.CLAMP)
             binding.newsRecyclerView.setRenderEffect(blurEffect)
         }
@@ -189,6 +196,11 @@ class NewsFragment : Fragment() {
         binding.newsRecyclerView.adapter = adapter
     }
 
+
+    private fun viewArticle(article: News) {
+        val articleDialog = ArticleDialogFragment(article)
+        articleDialog.show(childFragmentManager, null)
+    }
 
     override fun onDestroy() {
         super.onDestroy()
