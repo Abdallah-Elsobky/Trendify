@@ -20,6 +20,7 @@
     <string name="view_full_article">عرض المقال</string>
     <string name="theme">التصميم</string>
     <string name="language">اللغة</string>
+    <string name="logo">Logo</string>
 
     <string-array name="themes">
         <item>فاتح</item>

@@ -11,19 +11,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:backgroundTint="?attr/colorOnPrimary"
+        android:backgroundTint="?attr/colorPrimary"
         android:elevation="10dp"
         app:cardCornerRadius="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:strokeColor="?attr/colorPrimary"
+        app:strokeColor="@color/red"
         app:strokeWidth="2dp">
 
         <ImageView
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_margin="5dp"
+            android:contentDescription="@string/logo"
             android:src="@drawable/logo"
             app:layout_constraintHeight_percent="0.35"
             app:layout_constraintWidth_percent="0.35" />

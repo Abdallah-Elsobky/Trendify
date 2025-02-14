@@ -1,13 +1,13 @@
 package com.example.trendify.ui.home.fragments.category
 
 import Constants
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.trendify.R
+import com.example.trendify.api.model.Category
 import com.example.trendify.databinding.FragmentCategoryBinding
 import com.example.trendify.ui.home.fragments.news.NewsFragment
 
@@ -35,7 +35,7 @@ class CategoryFragment : Fragment() {
         val adapter = CategoriesAdapter {
             val bundle = Bundle()
             bundle.putString(Constants.CATEGORY_ID, it.id)
-            categorySelectedListener?.onCategorySelected(getString(it.title))
+            categorySelectedListener?.onCategorySelected(it)
             newsFragment.arguments = bundle
             parentFragmentManager.beginTransaction().replace(R.id.fragment_container, newsFragment)
                 .commit()
@@ -49,6 +49,6 @@ class CategoryFragment : Fragment() {
     }
 
     interface OnCategorySelected {
-        fun onCategorySelected(selectedCategory: String)
+        fun onCategorySelected(selectedCategory: Category)
     }
 }
