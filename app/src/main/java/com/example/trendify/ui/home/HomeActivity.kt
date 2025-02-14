@@ -1,10 +1,8 @@
 package com.example.trendify.ui.home
 
 import Constants
-import android.app.Activity
+import SharedPrefManager
 import android.content.Context
-import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
@@ -21,49 +19,63 @@ import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.example.trendify.R
+import com.example.trendify.api.model.Category
 import com.example.trendify.databinding.ActivityHomeBinding
 import com.example.trendify.ui.home.fragments.category.CategoryFragment
 import com.example.trendify.ui.home.fragments.news.NewsFragment
-import java.util.Locale
 
 class HomeActivity : AppCompatActivity(), CategoryFragment.OnCategorySelected {
 
     lateinit var binding: ActivityHomeBinding
     var category: String = "general"
     private val categoryFragment = CategoryFragment()
-
-    //    {
-//        category = it
-//        updateTitle(it)
-//        binding.navView.menu.getItem(0).isChecked = false
-//    }
     private val newsFragment = NewsFragment()
+
+    override fun onStart() {
+        super.onStart()
+        initPref()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        SharedPrefManager.init(this)
         if (savedInstanceState == null) {
             showFragment(categoryFragment)
         }
+        initUI()
+    }
 
-        navigation()
+
+    // Handle UI
+
+    private fun initUI() {
+        initSpinners()
         initSearch()
         openDrawer()
-        initSpinners()
-        setupTheme()
-        setupLanguage()
+        navigation()
     }
 
-    private fun initSpinners() {
-        val themesAdapter =
-            ArrayAdapter(this, R.layout.spinner_item, resources.getStringArray(R.array.themes))
-        val langAdapter =
-            ArrayAdapter(this, R.layout.spinner_item, resources.getStringArray(R.array.languages))
-        binding.themeSpinner.adapter = themesAdapter
-        binding.languageSpinner.adapter = langAdapter
+
+    // Handle App Preferences
+
+    private fun initPref() {
+        initLanguage()
+        initTheme()
     }
+
+    private fun initLanguage() {
+        val language: String = SharedPrefManager.get(Constants.LANGUAGE, "en")
+        changeLanguage(language)
+    }
+
+    private fun initTheme() {
+        val theme: Int = SharedPrefManager.get(Constants.THEME, AppCompatDelegate.MODE_NIGHT_NO)
+        changeTheme(theme)
+    }
+
+    // Handle Search Bar
 
     private fun initSearch() {
         val searchBar = binding.appBar.searchBar
@@ -115,11 +127,39 @@ class HomeActivity : AppCompatActivity(), CategoryFragment.OnCategorySelected {
         }
     }
 
+    // Handle Drawer
+
     private fun openDrawer() {
         binding.appBar.toolbar.setNavigationOnClickListener {
             binding.drawerLayout.open()
         }
     }
+
+    private fun initSpinners() {
+        val themesAdapter =
+            ArrayAdapter(this, R.layout.spinner_item, resources.getStringArray(R.array.themes))
+        val langAdapter =
+            ArrayAdapter(this, R.layout.spinner_item, resources.getStringArray(R.array.languages))
+        val themeSpinner = binding.themeSpinner
+        themeSpinner.adapter = themesAdapter
+        val languageSpinner = binding.languageSpinner
+        languageSpinner.adapter = langAdapter
+        val themePosition = SharedPrefManager.get(Constants.THEME, 1) - 1
+        themeSpinner.setSelection(themePosition)
+        val language = when (SharedPrefManager.get(Constants.LANGUAGE, "en")) {
+            "en" -> "English"
+            "ar" -> "Arabic"
+            "es" -> "Spanish"
+            "fr" -> "French"
+            else -> "English"
+        }
+        val langPosition = langAdapter.getPosition(language)
+        languageSpinner.setSelection(langPosition)
+        setupTheme()
+        setupLanguage()
+    }
+
+    // Handle Navigate Home Fragment
 
     private fun navigation() {
         binding.navView.setNavigationItemSelectedListener { item ->
@@ -139,6 +179,8 @@ class HomeActivity : AppCompatActivity(), CategoryFragment.OnCategorySelected {
         }
     }
 
+    // Handle Fragment Transactions
+
     private fun showFragment(fragment: Fragment, backStack: Boolean = false) {
         val transaction = supportFragmentManager.beginTransaction()
 
@@ -156,16 +198,21 @@ class HomeActivity : AppCompatActivity(), CategoryFragment.OnCategorySelected {
         transaction.commit()
     }
 
+    // Handle Appbar Title
+
     private fun updateTitle(title: String) {
         binding.appBar.title.text = title
     }
+
+    // Handle Themes
 
     private fun setupTheme() {
         binding.themeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 when (p2) {
-                    0 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                    1 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                    0 -> changeTheme(AppCompatDelegate.MODE_NIGHT_NO)
+
+                    1 -> changeTheme(AppCompatDelegate.MODE_NIGHT_YES)
                 }
             }
 
@@ -176,34 +223,25 @@ class HomeActivity : AppCompatActivity(), CategoryFragment.OnCategorySelected {
         }
     }
 
+    private fun changeTheme(theme: Int) {
+        AppCompatDelegate.setDefaultNightMode(theme)
+        SharedPrefManager.put(Constants.THEME, theme)
+    }
+
+    // Handle Language
+
     private fun setupLanguage() {
         binding.languageSpinner.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                     when (p2) {
-                        0 -> AppCompatDelegate.setApplicationLocales(
-                            LocaleListCompat.forLanguageTags(
-                                "en"
-                            )
-                        )
+                        0 -> changeLanguage("en")
 
-                        1 -> AppCompatDelegate.setApplicationLocales(
-                            LocaleListCompat.forLanguageTags(
-                                "ar"
-                            )
-                        )
+                        1 -> changeLanguage("ar")
 
-                        2 -> AppCompatDelegate.setApplicationLocales(
-                            LocaleListCompat.forLanguageTags(
-                                "es"
-                            )
-                        )
+                        2 -> changeLanguage("es")
 
-                        3 -> AppCompatDelegate.setApplicationLocales(
-                            LocaleListCompat.forLanguageTags(
-                                "fr"
-                            )
-                        )
+                        3 -> changeLanguage("fr")
                     }
                 }
 
@@ -213,6 +251,13 @@ class HomeActivity : AppCompatActivity(), CategoryFragment.OnCategorySelected {
 
             }
     }
+
+    private fun changeLanguage(lang: String) {
+        AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(lang))
+        SharedPrefManager.put(Constants.LANGUAGE, lang)
+    }
+
+    // Handle Back Button
 
     override fun onBackPressed() {
         val fragmentManager = supportFragmentManager
@@ -229,9 +274,11 @@ class HomeActivity : AppCompatActivity(), CategoryFragment.OnCategorySelected {
         }
     }
 
-    override fun onCategorySelected(selectedCategory: String) {
-        category = selectedCategory
-        updateTitle(category)
+    // Send Selected Category Title to Home Activity
+
+    override fun onCategorySelected(selectedCategory: Category) {
+        updateTitle(getString(selectedCategory.title))
+        category = selectedCategory.id
         binding.navView.menu.getItem(0).isChecked = false
     }
 

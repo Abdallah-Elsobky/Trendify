@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.example.trendify.api.ApiManager
@@ -24,7 +23,6 @@ import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.Locale
 
 
 class NewsFragment : Fragment() {
@@ -52,7 +50,6 @@ class NewsFragment : Fragment() {
     private fun loadSources() {
         showLoading()
         val categoryId = arguments?.getString(Constants.CATEGORY_ID) ?: "general"
-//        val lang = Locale.getDefault().language
         ApiManager.webService().getSources(categoryId)
             .enqueue(object : Callback<SourcesResponse> {
                 override fun onResponse(
