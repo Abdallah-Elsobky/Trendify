@@ -27,9 +27,11 @@
         <item>داكن</item>
     </string-array>
     <string-array name="languages">
-        <item>الإنجليزية</item>
-        <item>العربية</item>
-        <item>الإسبانية</item>
-        <item>الفرنسية</item>
+        <item >الإنجليزية</item>
+        <item >العربية</item>
+        <item >الإسبانية</item>
+        <item >الفرنسية</item>
+        <item>الالمانية</item>
+
     </string-array>
 </resources>

@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Trendify</string>
+    <string name="loading_please_wait">Laden.....\nBitte warten</string>
+    <string name="try_again">Erneut versuchen</string>
+    <string name="there_is_no_news_for_this_source">Für diese Quelle gibt es keine Nachrichten</string>
+    <string name="noNews">Derzeit sind keine Nachrichten verfügbar. Bleiben Sie dran für die neuesten Updates!</string>
+    <string name="error">Fehler</string>
+    <string name="home">Startseite</string>
+    <string name="go_to_home">Zur Startseite</string>
+
+    <string name="good_morning_here_is_some_news_for_you">Guten Morgen\nHier sind einige Nachrichten für Sie</string>
+    <string name="news">Nachrichten</string>
+    <string name="general">Allgemein</string>
+    <string name="entertainment">Unterhaltung</string>
+    <string name="business">Wirtschaft</string>
+    <string name="health">Gesundheit</string>
+    <string name="science">Wissenschaft</string>
+    <string name="sports">Sport</string>
+    <string name="tech">Technik</string>
+    <string name="search">Suche</string>
+    <string name="view_full_article">Vollständigen Artikel ansehen</string>
+    <string name="theme">Thema</string>
+    <string name="language">Sprache</string>
+    <string name="logo">Logo</string>
+
+    <string-array name="themes">
+        <item>Hell</item>
+        <item>Dunkel</item>
+    </string-array>
+    <string-array name="languages">
+        <item>Englisch</item>
+        <item>Arabisch</item>
+        <item>Spanisch</item>
+        <item>Französisch</item>
+        <item>Deutsche</item>
+    </string-array>
+</resources>
