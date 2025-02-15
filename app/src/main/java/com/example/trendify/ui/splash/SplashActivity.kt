@@ -14,10 +14,12 @@ import androidx.core.os.LocaleListCompat
 import com.example.trendify.R
 import com.example.trendify.databinding.ActivitySplashBinding
 import com.example.trendify.ui.home.HomeActivity
+import com.example.trendify.ui.onboarding.OnboardingActivity
 
 class SplashActivity : AppCompatActivity() {
 
     lateinit var binding: ActivitySplashBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         SharedPrefManager.init(this)
 
@@ -33,10 +35,17 @@ class SplashActivity : AppCompatActivity() {
         setContentView(binding.root)
         val popOutAnimation = AnimationUtils.loadAnimation(this, R.anim.pop_out)
         binding.title.startAnimation(popOutAnimation)
+
         Handler(Looper.getMainLooper()).postDelayed({
-            val intent = Intent(this, HomeActivity::class.java)
+            val intent: Intent
+            if(SharedPrefManager.get(Constants.IS_FIRST, true)){
+                intent = Intent(this, OnboardingActivity::class.java)
+            }else{
+                intent = Intent(this, HomeActivity::class.java)
+            }
             startActivity(intent)
             finish()
         }, 2500)
     }
+
 }

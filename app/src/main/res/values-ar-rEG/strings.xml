@@ -21,6 +21,8 @@
     <string name="theme">التصميم</string>
     <string name="language">اللغة</string>
     <string name="logo">Logo</string>
+    <string name="start">ابدء</string>
+    <string name="shadow">OOOO</string>
 
     <string-array name="themes">
         <item>فاتح</item>

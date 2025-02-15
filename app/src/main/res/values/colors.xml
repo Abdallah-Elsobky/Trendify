@@ -9,4 +9,10 @@
     <color name="onBlack">#FFFFFFFF</color>
     <color name="onWhite">#171717</color>
 
+    <color name="PrimaryVariant">#79767A</color>
+
+    <color name="fire">#FD8B1A</color>
+    <color name="green">#7DD221</color>
+
+
 </resources>

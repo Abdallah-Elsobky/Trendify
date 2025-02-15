@@ -22,6 +22,8 @@
     <string name="theme">Thème</string>
     <string name="language">Langue</string>
     <string name="logo">Logo</string>
+    <string name="start">Démarrer</string>
+    <string name="shadow">OOOO</string>
 
 
     <string-array name="themes">

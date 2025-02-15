@@ -22,6 +22,8 @@
     <string name="theme">Tema</string>
     <string name="language">Idioma</string>
     <string name="logo">Logo</string>
+    <string name="start">Iniciar</string>
+    <string name="shadow">OOOO</string>
 
     <string-array name="themes">
         <item>Claro</item>

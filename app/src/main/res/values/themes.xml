@@ -12,7 +12,7 @@
 
 
 
-        <item name="colorPrimaryVariant">@color/black_primary</item>
+        <item name="colorPrimaryVariant">@color/PrimaryVariant</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondaryVariant">@color/black_primary</item>
         <item name="colorTertiary">#FF00FF</item>
