@@ -59,6 +59,8 @@ dependencies {
     implementation (libs.lottie)
     implementation(libs.timeago)
     implementation (libs.glide)
+    implementation (libs.androidx.viewpager2)
+    implementation (libs.dotsindicator)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
 }

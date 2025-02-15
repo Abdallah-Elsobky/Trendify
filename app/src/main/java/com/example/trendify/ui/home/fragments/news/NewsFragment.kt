@@ -149,19 +149,19 @@ class NewsFragment : Fragment() {
         } else {
             binding.emptyView.isVisible = false
         }
-        showRv()
+        Constants.showBlur(binding.newsRecyclerView)
         adapter.setNews(news)
     }
 
     private fun showLoading() {
-        blurRv()
+        Constants.blurView(binding.newsRecyclerView,20f)
         binding.loadingView.isVisible = true
         binding.errorView.isVisible = false
         binding.emptyView.isVisible = false
     }
 
     private fun showError(errorMessage: String, onTryAgainClick: () -> Unit) {
-        blurRv()
+        Constants.blurView(binding.newsRecyclerView,20f)
         binding.errorView.isVisible = true
         binding.loadingView.isVisible = false
         binding.emptyView.isVisible = false
@@ -176,20 +176,8 @@ class NewsFragment : Fragment() {
         binding.loadingView.isVisible = false
     }
 
-    private fun blurRv() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            val blurEffect = RenderEffect.createBlurEffect(20f, 20f, Shader.TileMode.CLAMP)
-            binding.newsRecyclerView.setRenderEffect(blurEffect)
-        }
-    }
-
-    private fun showRv() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
-            binding.newsRecyclerView.setRenderEffect(null)
-    }
-
     private fun initViews() {
-        showRv()
+        Constants.showBlur(binding.newsRecyclerView)
         binding.newsRecyclerView.adapter = adapter
     }
 

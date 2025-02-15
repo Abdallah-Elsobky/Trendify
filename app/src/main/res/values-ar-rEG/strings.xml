@@ -21,15 +21,19 @@
     <string name="theme">التصميم</string>
     <string name="language">اللغة</string>
     <string name="logo">Logo</string>
+    <string name="start">ابدء</string>
+    <string name="shadow">OOOO</string>
 
     <string-array name="themes">
         <item>فاتح</item>
         <item>داكن</item>
     </string-array>
     <string-array name="languages">
-        <item>الإنجليزية</item>
-        <item>العربية</item>
-        <item>الإسبانية</item>
-        <item>الفرنسية</item>
+        <item >الإنجليزية</item>
+        <item >العربية</item>
+        <item >الإسبانية</item>
+        <item >الفرنسية</item>
+        <item>الالمانية</item>
+
     </string-array>
 </resources>

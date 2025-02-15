@@ -22,6 +22,8 @@
     <string name="theme">Thème</string>
     <string name="language">Langue</string>
     <string name="logo">Logo</string>
+    <string name="start">Démarrer</string>
+    <string name="shadow">OOOO</string>
 
 
     <string-array name="themes">
@@ -29,9 +31,10 @@
         <item>Sombre</item>
     </string-array>
     <string-array name="languages">
-        <item>Anglais</item>
-        <item>Arabe</item>
-        <item>Espagnol</item>
-        <item>Français</item>
+        <item >Anglais</item>
+        <item >Arabe</item>
+        <item >Espagnol</item>
+        <item >Français</item>
+        <item>Allemande</item>
     </string-array>
 </resources>
