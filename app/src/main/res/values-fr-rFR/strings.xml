@@ -29,9 +29,10 @@
         <item>Sombre</item>
     </string-array>
     <string-array name="languages">
-        <item>Anglais</item>
-        <item>Arabe</item>
-        <item>Espagnol</item>
-        <item>Français</item>
+        <item >Anglais</item>
+        <item >Arabe</item>
+        <item >Espagnol</item>
+        <item >Français</item>
+        <item>Allemande</item>
     </string-array>
 </resources>

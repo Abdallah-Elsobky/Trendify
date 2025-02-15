@@ -31,16 +31,11 @@ class HomeActivity : AppCompatActivity(), CategoryFragment.OnCategorySelected {
     private val categoryFragment = CategoryFragment()
     private val newsFragment = NewsFragment()
 
-    override fun onStart() {
-        super.onStart()
-        initPref()
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        SharedPrefManager.init(this)
         if (savedInstanceState == null) {
             showFragment(categoryFragment)
         }
@@ -55,25 +50,10 @@ class HomeActivity : AppCompatActivity(), CategoryFragment.OnCategorySelected {
         initSearch()
         openDrawer()
         navigation()
+        setupTheme()
+        setupLanguage()
     }
 
-
-    // Handle App Preferences
-
-    private fun initPref() {
-        initLanguage()
-        initTheme()
-    }
-
-    private fun initLanguage() {
-        val language: String = SharedPrefManager.get(Constants.LANGUAGE, "en")
-        changeLanguage(language)
-    }
-
-    private fun initTheme() {
-        val theme: Int = SharedPrefManager.get(Constants.THEME, AppCompatDelegate.MODE_NIGHT_NO)
-        changeTheme(theme)
-    }
 
     // Handle Search Bar
 
@@ -144,19 +124,6 @@ class HomeActivity : AppCompatActivity(), CategoryFragment.OnCategorySelected {
         themeSpinner.adapter = themesAdapter
         val languageSpinner = binding.languageSpinner
         languageSpinner.adapter = langAdapter
-        val themePosition = SharedPrefManager.get(Constants.THEME, 1) - 1
-        themeSpinner.setSelection(themePosition)
-        val language = when (SharedPrefManager.get(Constants.LANGUAGE, "en")) {
-            "en" -> "English"
-            "ar" -> "Arabic"
-            "es" -> "Spanish"
-            "fr" -> "French"
-            else -> "English"
-        }
-        val langPosition = langAdapter.getPosition(language)
-        languageSpinner.setSelection(langPosition)
-        setupTheme()
-        setupLanguage()
     }
 
     // Handle Navigate Home Fragment
@@ -207,19 +174,15 @@ class HomeActivity : AppCompatActivity(), CategoryFragment.OnCategorySelected {
     // Handle Themes
 
     private fun setupTheme() {
+        val themePosition = SharedPrefManager.get(Constants.THEME, 1)
+        binding.themeSpinner.setSelection(themePosition - 1)
         binding.themeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                when (p2) {
-                    0 -> changeTheme(AppCompatDelegate.MODE_NIGHT_NO)
-
-                    1 -> changeTheme(AppCompatDelegate.MODE_NIGHT_YES)
-                }
+                changeTheme(p2 + 1)
             }
-
             override fun onNothingSelected(p0: AdapterView<*>?) {
 
             }
-
         }
     }
 
@@ -231,6 +194,20 @@ class HomeActivity : AppCompatActivity(), CategoryFragment.OnCategorySelected {
     // Handle Language
 
     private fun setupLanguage() {
+
+        val language = when (SharedPrefManager.get(Constants.LANGUAGE, "en")) {
+            "en" -> resources.getStringArray(R.array.languages)[0]
+            "ar" -> resources.getStringArray(R.array.languages)[1]
+            "es" -> resources.getStringArray(R.array.languages)[2]
+            "fr" -> resources.getStringArray(R.array.languages)[3]
+            "de" -> resources.getStringArray(R.array.languages)[4]
+            else -> resources.getStringArray(R.array.languages)[0]
+        }
+        val languageSpinner = binding.languageSpinner
+        val langAdapter = languageSpinner.adapter as ArrayAdapter<String>
+        val langPosition = langAdapter.getPosition(language)
+        languageSpinner.setSelection(langPosition)
+
         binding.languageSpinner.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
@@ -242,6 +219,8 @@ class HomeActivity : AppCompatActivity(), CategoryFragment.OnCategorySelected {
                         2 -> changeLanguage("es")
 
                         3 -> changeLanguage("fr")
+
+                        4 -> changeLanguage("de")
                     }
                 }
 
