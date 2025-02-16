@@ -27,11 +27,13 @@ class OnboardingActivity : AppCompatActivity() {
                 super.onPageSelected(position)
                 if (position == Constants.boards.size - 1) {
                     binding.startBtn.isVisible = true
+                    binding.startBtn.startAnimation(Constants.popOutAnimation(this@OnboardingActivity))
                     binding.dotsIndicator.isVisible = false
 
-                } else {
+                } else if(binding.startBtn.isVisible){
                     binding.startBtn.isVisible = false
                     binding.dotsIndicator.isVisible = true
+                    binding.dotsIndicator.startAnimation(Constants.popOutAnimation(this@OnboardingActivity))
                 }
             }
         })

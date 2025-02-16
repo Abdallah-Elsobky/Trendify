@@ -1,7 +1,10 @@
+import android.content.Context
 import android.graphics.RenderEffect
 import android.graphics.Shader
 import android.os.Build
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import com.example.trendify.R
 import com.example.trendify.ui.onboarding.BoardItem
 
@@ -11,6 +14,9 @@ object Constants {
     const val THEME = "theme"
     const val LANGUAGE = "language"
     const val IS_FIRST = "newUser"
+
+    fun popOutAnimation(context: Context): Animation =
+        AnimationUtils.loadAnimation(context, R.anim.pop_out)
 
     val boards: List<BoardItem>
         get() = listOf(
