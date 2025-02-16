@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tabIndicatorColor="@color/white"
+        app:tabIndicatorColor="?attr/colorOnPrimary"
         app:tabMode="scrollable"
         app:tabTextColor="?attr/colorOnPrimary" />
 

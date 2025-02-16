@@ -17,7 +17,8 @@ class OnboardingAdapter(private val items: List<BoardItem>) :
             binding.titleOnboarding.text = item.title
             binding.descriptionOnboarding.text = item.description
             binding.lottieBoard2.setAnimation(item.image)
-            Constants.blurView(binding.lottieBoard2,200f)
+            binding.root.startAnimation(Constants.popOutAnimation(binding.root.context))
+            Constants.blurView(binding.lottieBoard2, 200f)
         }
     }
 
